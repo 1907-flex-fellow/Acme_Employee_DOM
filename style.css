@@ -1,0 +1,44 @@
+*{  
+    box-sizing: border-box
+}
+
+#employee-list{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/* need to use class instead of id, otherwise the favorite will not be show due to priority */
+.employee-card{
+    border-radius: 1rem;
+    display: flex;
+    height: 100px;
+    width: calc(100%/3 - 2rem);
+    border: solid 1px black;
+    margin: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: aqua;
+}
+
+.favorite{
+    background-color: plum;
+}
+
+.key {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.key div{
+    border-radius: 1rem;
+    display: flex;
+    height: 50px;
+    width: calc(100%/10 - 2rem);
+    border: solid 1px black;
+    margin: 1rem;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    background-color: plum;
+}

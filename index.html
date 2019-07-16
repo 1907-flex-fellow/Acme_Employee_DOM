@@ -1,0 +1,71 @@
+<html>
+  <head>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
+  </head>
+  <body>
+    <div id='container'>
+        <h1 id='title'>Acme Employees DOM</h1>
+        <div>Choose your three favorites employees.</div>
+        <div id='employee-list'>
+        </div>
+        <div id='keys'>
+            <div class='key'>
+                Favorite: 
+                <div class='swatch favorite'/>
+            </div>
+        </div>
+    </div>
+  <script>
+    const employees = [
+        { id: 1, name: 'moe'},
+        { id: 2, name: 'larry', managerId: 1},
+        { id: 4, name: 'shep', managerId: 2},
+        { id: 3, name: 'curly', managerId: 1},
+        { id: 5, name: 'groucho', managerId: 3},
+        { id: 6, name: 'harpo', managerId: 5},
+        { id: 8, name: 'shep Jr.', managerId: 4},
+        { id: 99, name: 'lucy', managerId: 1}
+    ];
+
+
+    let favorites = [];
+    const _favorites = JSON.parse(localStorage.getItem('myFavorites'));
+    console.log('_favorites: ', _favorites);
+    if(Array.isArray(_favorites)){
+        favorites = _favorites;
+    }
+
+    const employeeList = document.querySelector('#employee-list');
+    employees.forEach(employee => {
+        const div = document.createElement('div');
+        div.innerHTML = employee.name;
+        div.className = 'employee-card';
+        const isFavorite = favorites.find(id => id === employee.id); 
+        if(isFavorite){
+            div.classList.add('favorite');
+            console.log(div)
+        }
+        div.addEventListener('click',  ev => {
+            // see if this employee is already in there, if so need to toggle
+            const found = favorites.find( id => id === employee.id)
+            if(found){
+                // toggle off that id
+                favorites = favorites.filter( id => id !== employee.id);
+            }else{
+                // only when you have less than 3 and being click will send this div to favorites
+                if(favorites.length < 3){
+                    favorites.push(employee.id);
+                }else{
+                    return alert('can not have more than 3 favorites!');
+                }
+            }
+            // use classList syntax
+            div.classList.toggle('favorite');
+            localStorage.setItem('myFavorites',JSON.stringify(favorites));
+        })
+        employeeList.append(div);
+    })
+  </script>
+  </body>
+</html>
